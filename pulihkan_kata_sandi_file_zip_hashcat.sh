@@ -58,7 +58,7 @@ echo ""
 
 while true; do
         read -p "[#] Masukkan nama file ZIP: " file_zip
-
+	file_zip=$(echo "${file_zip}" | sed -e "s/^[ \t]*//" -e "s/[ \t]*$//" -e "s/^['\"]//" -e "s/['\"]$//")
         if [[ -z "${file_zip}" ]]; then
                 echo "[-] Nama file ZIP tidak boleh kosong."
                 continue
@@ -176,6 +176,7 @@ while true; do
 	if [[ "${pilih_teknik}" == "1" ]]; then
 		while true; do
 			read -p "[#] Masukkan nama file Wordlist: " file_wordlist
+			file_wordlist=$(echo "${file_wordlist}" | sed -e "s/^[ \t]*//" -e "s/[ \t]*$//" -e "s/^['\"]//" -e "s/['\"]$//")
 			if [[ -z "${file_wordlist}" ]]; then
 				echo "[-] Nama file Wordlist tidak boleh kosong."
 				continue

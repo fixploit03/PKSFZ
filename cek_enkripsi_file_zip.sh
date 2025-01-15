@@ -46,7 +46,7 @@ echo ""
 
 while true; do
 	read -p "[#] Masukkan nama file ZIP: " file_zip
-
+	file_zip=$(echo "${file_zip}" | sed -e "s/^[ \t]*//" -e "s/[ \t]*$//" -e "s/^['\"]//" -e "s/['\"]$//")
 	if [[ -z "${file_zip}" ]]; then
 		echo "[-] Nama file ZIP tidak boleh kosong."
 		continue
