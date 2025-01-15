@@ -43,7 +43,7 @@ PKSFZ memiliki 10 menu yaitu:
 1. Jalankan program PKSFZ dengan mengetikkan `bash run.sh`.
 2. Masukkan nama file ZIP yang ingin dipulihkan kata sandinya.
 3. Pilih jenis enkripsi yang digunakan oleh file ZIP.
-   > Untuk memeriksa jenis enkripsi, gunakan menu nomor 2.
+   > Untuk memeriksa jenis enkripsi yang digunakan oleh file ZIP, gunakan menu nomor 2.
 4. Masukkan nama file hash dari file ZIP.
 5. Pilih teknik pemulihan kata sandi file ZIP. Teknik yang tersedia adalah `Dictionary Attack` dan `Brute Force Attack`.
 6. Program akan memulai proses pemulihan kata sandi menggunakan John The Ripper.
@@ -57,7 +57,7 @@ PKSFZ memiliki 10 menu yaitu:
 1. Jalankan program PKSFZ dengan mengetikkan `bash run.sh`.
 2. Masukkan nama file ZIP yang ingin dipulihkan kata sandinya.
 3. Pilih jenis enkripsi yang digunakan oleh file ZIP.
-   > Untuk memeriksa jenis enkripsi, gunakan menu nomor 2.
+   > Untuk memeriksa jenis enkripsi yang digunakan oleh file ZIP, gunakan menu nomor 2.
 4. Masukkan nama file hash dari file ZIP.
 5. Pilih teknik pemulihan kata sandi file ZIP. Teknik yang tersedia adalah `Dictionary Attack` dan Brute `Force Attack`.
 6. Program akan memulai proses pemulihan kata sandi menggunakan Hashcat.
