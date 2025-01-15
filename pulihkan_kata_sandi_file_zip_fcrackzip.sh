@@ -12,7 +12,7 @@ if [[ ! -f "pemulih_kata_sandi_file_zip.sh" ]]; then
 fi
 
 if ! command -v zipinfo &>/dev/null; then
-        echo "[-] zipinfo belum diinstal."
+        echo "[-] 'zipinfo' belum diinstal."
         echo ""
         read -p "Tekan [Enter] untuk kembali ke menu utama..."
         if [[ -f "pemulih_kata_sandi_file_zip.sh" ]]; then
@@ -24,7 +24,7 @@ if ! command -v zipinfo &>/dev/null; then
 fi
 
 if ! command -v 7z &>/dev/null; then
-	echo "[-] 7z belum diinstal."
+	echo "[-] '7z' belum diinstal."
 	echo ""
 	read -p "Tekan [Enter] untuk kembali ke menu utama..."
 	if [[ -f "pemulih_kata_sandi_file_zip.sh" ]]; then
@@ -36,7 +36,7 @@ if ! command -v 7z &>/dev/null; then
 fi
 
 if ! command -v fcrackzip &>/dev/null; then
-        echo "[-] fcrackzip belum diinstal."
+        echo "[-] 'fcrackzip' belum diinstal."
         echo ""
         read -p "Tekan [Enter] untuk kembali ke menu utama..."
         if [[ -f "pemulih_kata_sandi_file_zip.sh" ]]; then
