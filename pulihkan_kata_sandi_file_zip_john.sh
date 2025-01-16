@@ -204,7 +204,9 @@ while true; do
 					else
 						echo ""
 						echo "[-] Kata sandi file ZIP gagal dipulihkan."
-						rm "pot.txt"
+						if [[ -f "pot.txt" ]]; then
+							rm "pot.txt"
+						fi
 					fi
 					echo ""
 			       		read -p "Tekan [Enter] untuk kembali ke menu utama..."
@@ -288,7 +290,9 @@ while true; do
 		else
 			echo ""
 			echo "[-] Kata sandi file ZIP gagal dipulihkan."
-			rm "pot.txt"
+			if [[ -f "pot.txt" ]]; then
+				rm "pot.txt"
+			fi
 		fi
 		echo ""
        		read -p "Tekan [Enter] untuk kembali ke menu utama..."
