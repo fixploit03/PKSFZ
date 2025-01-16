@@ -1,3 +1,6 @@
+#!/bin/bash
+# [waktu.sh]
+
 hari=$(date +%A)
 
 if [[ "${hari}" == "Monday" ]]; then
