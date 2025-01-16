@@ -174,6 +174,7 @@ echo ""
 while true; do
 	read -p "[#] Pilih teknik pemulihan kata sandi file ZIP: " pilih_teknik
 	if [[ "${pilih_teknik}" == "1" ]]; then
+		teknik="Dictionary Attack"
 		while true; do
 			read -p "[#] Masukkan nama file Wordlist: " file_wordlist
 			file_wordlist=$(echo "${file_wordlist}" | sed -e "s/^[ \t]*//" -e "s/[ \t]*$//" -e "s/^['\"]//" -e "s/['\"]$//")
@@ -187,7 +188,9 @@ while true; do
 					read -p "Tekan [Enter] untuk memulai proses pemulihan kata sandi file ZIP..."
 					echo ""
 					echo "[*] Memulihkan kata sandi file ZIP..."
+					waktu_mulai=$(bash "waktu.sh")
 					hashcat -a 0 -m "${mode}" "${file_hash}" "${file_wordlist}" --potfile-path "pot.txt"
+					waktu_selesai=$(bash "waktu.sh")
 					if [[ -f "pot.txt" ]]; then
 						if [[ $(cat "pot.txt" | grep -o ':') ]]; then
 							kata_sandi_file_zip=$(cat "pot.txt" | cut -d ":" -f 2)
@@ -201,8 +204,18 @@ while true; do
 							if [[ ! -f "hasil/kata_sandi_${base_name}.txt" ]]; then
 					                	touch "hasil/kata_sandi_${base_name}.txt"
 					                fi
-					                echo "Nama file ZIP: ${file_zip}" > "hasil/kata_sandi_${base_name}.txt"
-					                echo "Kata sandi: ${kata_sandi_file_zip}" >> "hasil/kata_sandi_${base_name}.txt"
+							echo "=====================================" > "hasil/kata_sandi_${base_name}.txt"
+							echo "" >> "hasil/kata_sandi_${base_name}.txt"
+					                echo "[+] Nama file ZIP: ${file_zip}" >> "hasil/kata_sandi_${base_name}.txt"
+					                echo "[+] Kata sandi: ${kata_sandi_file_zip}" >> "hasil/kata_sandi_${base_name}.txt"
+							echo "" >> "hasil/kata_sandi_${base_name}.txt"
+							echo "[+] Alat: Hashcat" >> "hasil/kata_sandi_${base_name}.txt"
+							echo "[+] Teknik: ${teknik}" >> "hasil/kata_sandi_${base_name}.txt"
+							echo "[+] Waktu mulai: ${waktu_mulai}" >> "hasil/kata_sandi_${base_name}.txt"
+							echo "[+] Waktu selesai: ${waktu_selesai}" >> "hasil/kata_sandi_${base_name}.txt"
+							echo "" >> "hasil/kata_sandi_${base_name}.txt"
+							echo "[https://github.com/fixploit03/PKSFZ]" >> "hasil/kata_sandi_${base_name}.txt"
+							echo "=====================================" >> "hasil/kata_sandi_${base_name}.txt"
 							real_path=$(realpath "hasil/kata_sandi_${base_name}.txt")
 					                echo "[+] Kata sandi file ZIP disimpan di: ${real_path}"
 							rm "pot.txt"
@@ -235,6 +248,7 @@ while true; do
 		done
 		break
 	elif [[ "${pilih_teknik}" == "2" ]]; then
+		teknik="Brute Force Attack"
 		while true; do
 			read -p "[#] Masukkan panjang minimal kata sandi: " panjang_min
 			if [[ -z "${panjang_min}" ]]; then
@@ -271,7 +285,18 @@ while true; do
                 read -p "Tekan [Enter] untuk memulai proses pemulihan kata sandi file ZIP..."
                 echo ""
 		echo "[*] Memulihkan kata sandi file ZIP..."
-		hashcat -a 3 -m "${mode}" "${file_hash}" --increment --increment-min="${panjang_min}" --increment-max="${panjang_maks}" --potfile-path "pot.txt"
+		waktu_mulai=$(bash "waktu.sh")
+		mask="?a"
+		for ((i="${panjang_min}"; i<="${panjang_maks}"; i++)); do
+			mask_pattern=$(printf "%.0s${mask}" $(seq 1 "${i}"))
+		    	hashcat -a 3 -m "${mode}" "${file_hash}" "${mask_pattern}" --increment --increment-min="${panjang_min}" --increment-max="${panjang_maks}" --potfile-path "pot.txt"
+			if [[ -f "pot.txt" ]]; then
+				if [[ $(cat "pot.txt" | grep -o ':') ]]; then
+					break
+				fi
+			fi
+		done
+		waktu_selesai=$(bash "waktu.sh")
 		if [[ -f "pot.txt" ]]; then
 			if [[ $(cat "pot.txt" | grep -o ':') ]]; then
 				kata_sandi_file_zip=$(cat "pot.txt" | cut -d ':' -f 2)
@@ -285,8 +310,18 @@ while true; do
 				if [[ ! -f "hasil/kata_sandi_${base_name}.txt" ]]; then
                                 	touch "hasil/kata_sandi_${base_name}.txt"
                                 fi
-                                echo "Nama file ZIP: ${file_zip}" > "hasil/kata_sandi_${base_name}.txt"
-                                echo "Kata sandi: ${kata_sandi_file_zip}" >> "hasil/kata_sandi_${base_name}.txt"
+				echo "=====================================" > "hasil/kata_sandi_${base_name}.txt"
+				echo "" >> "hasil/kata_sandi_${base_name}.txt"
+                                echo "[+] Nama file ZIP: ${file_zip}" >> "hasil/kata_sandi_${base_name}.txt"
+                                echo "[+] Kata sandi: ${kata_sandi_file_zip}" >> "hasil/kata_sandi_${base_name}.txt"
+				echo "" >> "hasil/kata_sandi_${base_name}.txt"
+				echo "[+] Alat: Hashcat" >> "hasil/kata_sandi_${base_name}.txt"
+				echo "[+] Teknik: ${teknik}" >> "hasil/kata_sandi_${base_name}.txt"
+				echo "[+] Waktu mulai: ${waktu_mulai}" >> "hasil/kata_sandi_${base_name}.txt"
+				echo "[+] Waktu selesai: ${waktu_selesai}" >> "hasil/kata_sandi_${base_name}.txt"
+				echo "" >> "hasil/kata_sandi_${base_name}.txt"
+				echo "[https://github.com/fixploit03/PKSFZ]" >> "hasil/kata_sandi_${base_name}.txt"
+				echo "=====================================" >> "hasil/kata_sandi_${base_name}.txt"
 				real_path=$(realpath "hasil/kata_sandi_${base_name}.txt")
                                 echo "[+] Kata sandi file ZIP disimpan di: ${real_path}"
                                 rm "pot.txt"

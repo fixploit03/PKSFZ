@@ -112,6 +112,7 @@ echo ""
 while true; do
 	read -p "[#] Pilih teknik pemulihan kata sandi file ZIP: " pilih_teknik
 	if [[ "${pilih_teknik}" == "1" ]]; then
+		teknik="Dictionary Attack"
 		while true; do
 			read -p "[#] Masukkan nama file Wordlist: " file_wordlist
 			file_wordlist=$(echo "${file_wordlist}" | sed -e "s/^[ \t]*//" -e "s/[ \t]*$//" -e "s/^['\"]//" -e "s/['\"]$//")
@@ -126,7 +127,9 @@ while true; do
 					echo ""
 					echo "[*] Memulihkan kata sandi file ZIP..."
 					echo ""
+					waktu_mulai=$(bash "waktu.sh")
 					fcrackzip -v -u -D -p "${file_wordlist}" "${file_zip}" | tee "pot.txt"
+					waktu_selesai=$(bash "waktu.sh")
 					if [[ -f "pot.txt" ]]; then
 						if [[ $(grep -i 'password found' "pot.txt") ]]; then
 							kata_sandi_file_zip=$(cat "pot.txt" | grep -i 'password found' | awk -F "== " '{print $2}')
@@ -140,8 +143,18 @@ while true; do
 							if [[ ! -f "hasil/kata_sandi_${base_name}.txt" ]]; then
 								touch "hasil/kata_sandi_${base_name}.txt"
 							fi
-							echo "Nama file ZIP: ${file_zip}" > "hasil/kata_sandi_${base_name}.txt"
-							echo "Kata sandi: ${kata_sandi_file_zip}" >> "hasil/kata_sandi_${base_name}.txt"
+							echo "=====================================" > "hasil/kata_sandi_${base_name}.txt"
+							echo "" >> "hasil/kata_sandi_${base_name}.txt"
+							echo "[+] Nama file ZIP: ${file_zip}" >> "hasil/kata_sandi_${base_name}.txt"
+							echo "[+] Kata sandi: ${kata_sandi_file_zip}" >> "hasil/kata_sandi_${base_name}.txt"
+							echo "" >> "hasil/kata_sandi_${base_name}.txt"
+							echo "[+] Alat: Fcrackzip" >> "hasil/kata_sandi_${base_name}.txt"
+							echo "[+] Teknik: ${teknik}" >> "hasil/kata_sandi_${base_name}.txt"
+							echo "[+] Waktu mulai: ${waktu_mulai}" >> "hasil/kata_sandi_${base_name}.txt"
+							echo "[+] Waktu selesai: ${waktu_selesai}" >> "hasil/kata_sandi_${base_name}.txt"
+							echo "" >> "hasil/kata_sandi_${base_name}.txt" >> "hasil/kata_sandi_${base_name}.txt"
+							echo "[https://github.com/fixploit03/PKSFZ]" >> "hasil/kata_sandi_${base_name}.txt"
+							echo "=====================================" >> "hasil/kata_sandi_${base_name}.txt"
 							real_path=$(realpath "hasil/kata_sandi_${base_name}.txt")
 							echo "[+] Kata sandi file ZIP disimpan di: ${real_path}"
 							rm "pot.txt"
@@ -174,6 +187,7 @@ while true; do
 		done
 		break
 	elif [[ "${pilih_teknik}" == "2" ]]; then
+		teknik="Brute Force Attack"
 		while true; do
 			read -p "[#] Masukkan panjang minimal kata sandi: " panjang_min
 			if [[ -z "${panjang_min}" ]]; then
@@ -211,7 +225,9 @@ while true; do
 		echo ""
 		echo "[*] Memulihkan kata sandi file ZIP..."
 		echo ""
+		waktu_mulai=$(bash "waktu.sh")
 		fcrackzip -v -u -b -c aA1! -l "${panjang_min}-${panjang_maks}" "${file_zip}" | tee "pot.txt"
+		waktu_selesai=$(bash "waktu.sh")
 		if [[ -f "pot.txt" ]]; then
 				if [[ $(grep -i 'password found' "pot.txt") ]]; then
 					kata_sandi_file_zip=$(cat "pot.txt" | grep -i 'password found' | awk -F "== " '{print $2}')
@@ -225,8 +241,18 @@ while true; do
 					if [[ ! -f "hasil/kata_sandi_${base_name}.txt" ]]; then
 						touch "hasil/kata_sandi_${base_name}.txt"
 					fi
-					echo "Nama file ZIP: ${file_zip}" > "hasil/kata_sandi_${base_name}.txt"
-					echo "Kata sandi: ${kata_sandi_file_zip}" >> "hasil/kata_sandi_${base_name}.txt"
+					echo "=====================================" > "hasil/kata_sandi_${base_name}.txt"
+					echo "" >> "hasil/kata_sandi_${base_name}.txt"
+					echo "[+] Nama file ZIP: ${file_zip}" >> "hasil/kata_sandi_${base_name}.txt"
+					echo "[+] Kata sandi: ${kata_sandi_file_zip}" >> "hasil/kata_sandi_${base_name}.txt"
+					echo "" >> "hasil/kata_sandi_${base_name}.txt"
+					echo "[+] Alat: Fcrackzip" >> "hasil/kata_sandi_${base_name}.txt"
+					echo "[+] Teknik: ${teknik}" >> "hasil/kata_sandi_${base_name}.txt"
+					echo "[+] Waktu mulai: ${waktu_muulai}" >> "hasil/kata_sandi_${base_name}.txt"
+					echo "[+] Waktu akhir: ${waktu_akhir}" >> "hasil/kata_sandi_${base_name}.txt"
+					echo "" >> "hasil/kata_sandi_${base_name}.txt"
+					echo "[https://github.com/fixploit03/PKSFZ]" >> "hasil/kata_sandi_${base_name}.txt"
+					echo "=====================================" >> "hasil/kata_sandi_${base_name}.txt"
 					real_path=$(realpath "hasil/kata_sandi_${base_name}.txt")
 					echo "[+] Kata sandi file ZIP disimpan di: ${real_path}"
 					rm "pot.txt"
