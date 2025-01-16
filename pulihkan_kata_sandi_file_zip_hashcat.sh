@@ -188,6 +188,10 @@ while true; do
 					read -p "Tekan [Enter] untuk memulai proses pemulihan kata sandi file ZIP..."
 					echo ""
 					echo "[*] Memulihkan kata sandi file ZIP..."
+					if [[ ! -f "waktu.sh" ]]; then
+						echo "[-] File 'waktu.sh' tidak ditemukan."
+						exit 1
+					fi
 					waktu_mulai=$(bash "waktu.sh")
 					hashcat -a 0 -m "${mode}" "${file_hash}" "${file_wordlist}" --potfile-path "pot.txt"
 					waktu_selesai=$(bash "waktu.sh")
@@ -206,7 +210,7 @@ while true; do
 					                fi
 							echo "=====================================" > "hasil/kata_sandi_${base_name}.txt"
 							echo "" >> "hasil/kata_sandi_${base_name}.txt"
-					                echo "[+] Nama file ZIP: ${file_zip}" >> "hasil/kata_sandi_${base_name}.txt"
+					                echo "[+] File ZIP: ${file_zip}" >> "hasil/kata_sandi_${base_name}.txt"
 					                echo "[+] Kata sandi: ${kata_sandi_file_zip}" >> "hasil/kata_sandi_${base_name}.txt"
 							echo "" >> "hasil/kata_sandi_${base_name}.txt"
 							echo "[+] Alat: Hashcat" >> "hasil/kata_sandi_${base_name}.txt"
@@ -285,6 +289,10 @@ while true; do
                 read -p "Tekan [Enter] untuk memulai proses pemulihan kata sandi file ZIP..."
                 echo ""
 		echo "[*] Memulihkan kata sandi file ZIP..."
+		if [[ ! -f "waktu.sh" ]]; then
+			echo "[-] File 'waktu.sh' tidak ditemukan."
+			exit 1
+		fi
 		waktu_mulai=$(bash "waktu.sh")
 		mask="?a"
 		for ((i="${panjang_min}"; i<="${panjang_maks}"; i++)); do
@@ -312,7 +320,7 @@ while true; do
                                 fi
 				echo "=====================================" > "hasil/kata_sandi_${base_name}.txt"
 				echo "" >> "hasil/kata_sandi_${base_name}.txt"
-                                echo "[+] Nama file ZIP: ${file_zip}" >> "hasil/kata_sandi_${base_name}.txt"
+                                echo "[+] File ZIP: ${file_zip}" >> "hasil/kata_sandi_${base_name}.txt"
                                 echo "[+] Kata sandi: ${kata_sandi_file_zip}" >> "hasil/kata_sandi_${base_name}.txt"
 				echo "" >> "hasil/kata_sandi_${base_name}.txt"
 				echo "[+] Alat: Hashcat" >> "hasil/kata_sandi_${base_name}.txt"

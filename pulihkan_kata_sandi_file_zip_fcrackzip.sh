@@ -127,6 +127,10 @@ while true; do
 					echo ""
 					echo "[*] Memulihkan kata sandi file ZIP..."
 					echo ""
+					if [[ ! -f "waktu.sh" ]]; then
+						echo "[-] File 'waktu.sh' tidak ditemukan."
+						exit 1
+					fi
 					waktu_mulai=$(bash "waktu.sh")
 					fcrackzip -v -u -D -p "${file_wordlist}" "${file_zip}" | tee "pot.txt"
 					waktu_selesai=$(bash "waktu.sh")
@@ -145,7 +149,7 @@ while true; do
 							fi
 							echo "=====================================" > "hasil/kata_sandi_${base_name}.txt"
 							echo "" >> "hasil/kata_sandi_${base_name}.txt"
-							echo "[+] Nama file ZIP: ${file_zip}" >> "hasil/kata_sandi_${base_name}.txt"
+							echo "[+] File ZIP: ${file_zip}" >> "hasil/kata_sandi_${base_name}.txt"
 							echo "[+] Kata sandi: ${kata_sandi_file_zip}" >> "hasil/kata_sandi_${base_name}.txt"
 							echo "" >> "hasil/kata_sandi_${base_name}.txt"
 							echo "[+] Alat: Fcrackzip" >> "hasil/kata_sandi_${base_name}.txt"
@@ -225,6 +229,10 @@ while true; do
 		echo ""
 		echo "[*] Memulihkan kata sandi file ZIP..."
 		echo ""
+		if [[ ! -f "waktu.sh" ]]; then
+			echo "[-] File 'waktu.sh' tidak ditemukan."
+			exit 1
+		fi
 		waktu_mulai=$(bash "waktu.sh")
 		fcrackzip -v -u -b -c aA1! -l "${panjang_min}-${panjang_maks}" "${file_zip}" | tee "pot.txt"
 		waktu_selesai=$(bash "waktu.sh")
@@ -243,7 +251,7 @@ while true; do
 					fi
 					echo "=====================================" > "hasil/kata_sandi_${base_name}.txt"
 					echo "" >> "hasil/kata_sandi_${base_name}.txt"
-					echo "[+] Nama file ZIP: ${file_zip}" >> "hasil/kata_sandi_${base_name}.txt"
+					echo "[+] File ZIP: ${file_zip}" >> "hasil/kata_sandi_${base_name}.txt"
 					echo "[+] Kata sandi: ${kata_sandi_file_zip}" >> "hasil/kata_sandi_${base_name}.txt"
 					echo "" >> "hasil/kata_sandi_${base_name}.txt"
 					echo "[+] Alat: Fcrackzip" >> "hasil/kata_sandi_${base_name}.txt"
