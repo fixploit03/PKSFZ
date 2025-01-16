@@ -110,7 +110,8 @@ done
 
 while true; do
 	read -p "[#] Masukkan nama folder untuk menyimpan file ZIP yang berhasil diekstrak: " folder
-	if [[ -z "[-] Nama folder tidak boleh kosong." ]]; then
+	if [[ -z "${folder}" ]]; then
+ 		echo "[-] Nama folder tidak boleh kosong."
 		continue
 	else
 		if [[ -d "${folder}" ]]; then
