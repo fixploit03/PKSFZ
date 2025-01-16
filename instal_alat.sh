@@ -64,7 +64,7 @@ done
 if [[ "${#gagal[@]}" -ne 0 ]]; then
 	echo "[-] Ada alat yang gagal diinstal:"
 	echo ""
-	for alat_gagal in "${gagal}"; do
+	for alat_gagal in "${gagal[@]}"; do
 		echo "- ${alat_gagal}"
 	done
 	echo ""
