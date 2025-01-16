@@ -156,7 +156,7 @@ while true; do
 							echo "[+] Teknik: ${teknik}" >> "hasil/kata_sandi_${base_name}.txt"
 							echo "[+] Waktu mulai: ${waktu_mulai}" >> "hasil/kata_sandi_${base_name}.txt"
 							echo "[+] Waktu selesai: ${waktu_selesai}" >> "hasil/kata_sandi_${base_name}.txt"
-							echo "" >> "hasil/kata_sandi_${base_name}.txt" >> "hasil/kata_sandi_${base_name}.txt"
+							echo "" >> "hasil/kata_sandi_${base_name}.txt"
 							echo "[https://github.com/fixploit03/PKSFZ]" >> "hasil/kata_sandi_${base_name}.txt"
 							echo "=====================================" >> "hasil/kata_sandi_${base_name}.txt"
 							real_path=$(realpath "hasil/kata_sandi_${base_name}.txt")
