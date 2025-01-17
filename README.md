@@ -10,7 +10,7 @@ sudo apt-get install git
 git clone https://github.com/fixploit03/PKSFZ.git
 cd PKSFZ
 chmod +x *.sh
-./run.sh
+sudo ./run.sh
 ```
 
 ## Cara menggunakan PKSFZ
