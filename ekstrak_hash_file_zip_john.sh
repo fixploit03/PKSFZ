@@ -11,55 +11,56 @@ if [[ ! -f "pemulih_kata_sandi_file_zip.sh" ]]; then
 	exit 1
 fi
 
+daftar_alat=(
+	"zipinfo"
+	"7z"
+	"unzip"
+	"zip2john"
+)
+
+gagal=()
+
+for cek_alat in "${daftar_alat[@]}"; do
+	if ! command -v "${cek_alat}" &>/dev/null; then
+		gagal+=("${cek_alat}")
+	fi
+done
+
+if [[ "${#gagal[@]}" -ne 0 ]]; then
+	if [[ "${#gagal[@]}" -eq 1 ]]; then
+		echo "[-] Menu nomor 3 tidak bisa digunakan, karena ada alat yang belum diinstal."
+		echo ""
+		echo "Alat yang belum diinstal:"
+		echo ""
+		echo "- ${gagal[0]}"
+		echo ""
+		read -p "Tekan [Enter] untuk kembali kemenu utama..."
+		if [[ -f "pemulih_kata_sandi_file_zip.sh" ]]; then
+	        	bash "pemulih_kata_sandi_file_zip.sh"
+	        else
+	                echo "[-] File 'pemulih_kata_sandi_file_zip.sh' tidak ditemukan."
+	                exit 1
+	        fi
+	else
+		echo "[-] Menu nomor 3 tidak bisa digunakan, karena ada alat-alat yang belum diinstal."
+		echo ""
+		echo "Alat-alat yang belum diinstal:"
+		echo ""
+		for alat_gagal in "${gagal[@]}"; do
+			echo "- ${alat_gagal}"
+		done
+		echo ""
+		read -p "Tekan [Enter] untuk kembali kemenu utama..."
+		if [[ -f "pemulih_kata_sandi_file_zip.sh" ]]; then
+	        	bash "pemulih_kata_sandi_file_zip.sh"
+	        else
+	                echo "[-] File 'pemulih_kata_sandi_file_zip.sh' tidak ditemukan."
+	                exit 1
+	        fi
+	fi
+fi
+
 clear
-
-if ! command -v zipinfo &>/dev/null; then
-	echo "[-] 'zipinfo' belum diinstal."
-	echo ""
-	read -p "Tekan [Enter] untuk kembali ke menu utama..."
-	if [[ -f "pemulih_kata_sandi_file_zip.sh" ]]; then
-		bash "pemulih_kata_sandi_file_zip.sh"
-	else
-		echo "[-] File 'pemulih_kata_sandi_file_zip.sh' tidak ditemukan."
-		exit 1
-	fi
-fi
-
-if ! command -v 7z &>/dev/null; then
-	echo "[-] '7z' belum diinstal."
-	echo ""
-	read -p "Tekan [Enter] untuk kembali ke menu utama..."
-	if [[ -f "pemulih_kata_sandi_file_zip.sh" ]]; then
-		bash "pemulih_kata_sandi_file_zip.sh"
-	else
-		echo "[-] File 'pemulih_kata_sandi_file_zip.sh' tidak ditemukan."
-		exit 1
-	fi
-fi
-
-if ! command -v unzip &>/dev/null; then
-	echo "[-] 'unzip' belum diinstal."
-	echo ""
-	read -p "Tekan [Enter] untuk kembali ke menu utama..."
-	if [[ -f "pemulih_kata_sandi_file_zip.sh" ]]; then
-		bash "pemulih_kata_sandi_file_zip.sh"
-	else
-		echo "[-] File 'pemulih_kata_sandi_file_zip.sh' tidak ditemukan."
-		exit 1
-	fi
-fi
-
-if ! command -v zip2john &>/dev/null; then
-	echo "[-] 'zip2john' belum diinstal."
-	echo ""
-	read -p "Tekan [Enter] untuk kembali ke menu utama..."
-	if [[ -f "pemulih_kata_sandi_file_zip.sh" ]]; then
-		bash "pemulih_kata_sandi_file_zip.sh"
-	else
-		echo "[-] File 'pemulih_kata_sandi_file_zip.sh' tidak ditemukan."
-		exit 1
-	fi
-fi
 
 echo "+--------------------------------------------------------+"
 echo "|                                                        |"

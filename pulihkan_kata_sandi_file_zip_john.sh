@@ -11,40 +11,52 @@ if [[ ! -f "pemulih_kata_sandi_file_zip.sh" ]]; then
 	exit 1
 fi
 
-if ! command -v zipinfo &>/dev/null; then
-        echo "[-] 'zipinfo' belum diinstal."
-        echo ""
-        read -p "Tekan [Enter] untuk kembali ke menu utama..."
-        if [[ -f "pemulih_kata_sandi_file_zip.sh" ]]; then
-                bash "pemulih_kata_sandi_file_zip.sh"
-        else
-                echo "[-] File 'pemulih_kata_sandi_file_zip.sh' tidak ditemukan."
-                exit 1
-        fi
-fi
+daftar_alat=(
+	"zipinfo"
+	"7z"
+	"john"
+)
 
-if ! command -v 7z &>/dev/null; then
-	echo "[-] '7z' belum diinstal."
-	echo ""
-	read -p "Tekan [Enter] untuk kembali ke menu utama..."
-	if [[ -f "pemulih_kata_sandi_file_zip.sh" ]]; then
-		bash "pemulih_kata_sandi_file_zip.sh"
-	else
-		echo "[-] File 'pemulih_kata_sandi_file_zip.sh' tidak ditemukan."
-		exit 1
+gagal=()
+
+for cek_alat in "${daftar_alat[@]}"; do
+	if ! command -v "${cek_alat}" &>/dev/null; then
+		gagal+=("${cek_alat}")
 	fi
-fi
+done
 
-if ! command -v john &>/dev/null; then
-        echo "[-] 'john' belum diinstal."
-        echo ""
-        read -p "Tekan [Enter] untuk kembali ke menu utama..."
-        if [[ -f "pemulih_kata_sandi_file_zip.sh" ]]; then
-                bash "pemulih_kata_sandi_file_zip.sh"
-        else
-                echo "[-] File 'pemulih_kata_sandi_file_zip.sh' tidak ditemukan."
-                exit 1
-        fi
+if [[ "${#gagal[@]}" -ne 0 ]]; then
+	if [[ "${#gagal[@]}" -eq 1 ]]; then
+		echo "[-] Menu nomor 6 tidak bisa digunakan, karena ada alat yang belum diinstal."
+		echo ""
+		echo "Alat yang belum diinstal:"
+		echo ""
+		echo "- ${gagal[0]}"
+		echo ""
+		read -p "Tekan [Enter] untuk kembali kemenu utama..."
+		if [[ -f "pemulih_kata_sandi_file_zip.sh" ]]; then
+	        	bash "pemulih_kata_sandi_file_zip.sh"
+	        else
+	                echo "[-] File 'pemulih_kata_sandi_file_zip.sh' tidak ditemukan."
+	                exit 1
+	        fi
+	else
+		echo "[-] Menu nomor 6 tidak bisa digunakan, karena ada alat-alat yang belum diinstal."
+		echo ""
+		echo "Alat-alat yang belum diinstal:"
+		echo ""
+		for alat_gagal in "${gagal[@]}"; do
+			echo "- ${alat_gagal}"
+		done
+		echo ""
+		read -p "Tekan [Enter] untuk kembali kemenu utama..."
+		if [[ -f "pemulih_kata_sandi_file_zip.sh" ]]; then
+	        	bash "pemulih_kata_sandi_file_zip.sh"
+	        else
+	                echo "[-] File 'pemulih_kata_sandi_file_zip.sh' tidak ditemukan."
+	                exit 1
+	        fi
+	fi
 fi
 
 clear
