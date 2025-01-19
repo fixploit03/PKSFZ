@@ -307,15 +307,8 @@ while true; do
 		fi
 		waktu_mulai=$(bash "waktu.sh")
 		mask="?a"
-		for ((i="${panjang_min}"; i<="${panjang_maks}"; i++)); do
-			mask_pattern=$(printf "%.0s${mask}" $(seq 1 "${i}"))
-		    	hashcat -a 3 -m "${mode}" "${file_hash}" "${mask_pattern}" --increment --increment-min="${panjang_min}" --increment-max="${panjang_maks}" --potfile-path "pot.txt"
-			if [[ -f "pot.txt" ]]; then
-				if [[ $(cat "pot.txt" | grep -o ':') ]]; then
-					break
-				fi
-			fi
-		done
+		mask_pattern=$(printf "${mask}%.0s" $(seq 1 "${panjang_maks}"))
+		hashcat -a 3 -m "${mode}" "${file_hash}" "${mask_pattern}" --increment --increment-min="${panjang_min}" --increment-max="${panjang_maks}" --potfile-path "pot.txt"
 		waktu_selesai=$(bash "waktu.sh")
 		if [[ -f "pot.txt" ]]; then
 			if [[ $(cat "pot.txt" | grep -o ':') ]]; then
